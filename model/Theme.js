@@ -26,6 +26,7 @@ class Theme {
   }
 }
 
+
 export {
   Theme
 }
