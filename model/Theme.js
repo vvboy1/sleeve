@@ -19,6 +19,7 @@ class Theme {
       data: {
         names: 't-1'
       },
+      // 这里可以是中间层，可简写：callback，把首层实现的回调函数往后传即可
       callback:data=>{
         callback(data)
       }
