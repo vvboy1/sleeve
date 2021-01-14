@@ -2,7 +2,7 @@
     <image class="top-theme" src="{{themeA.entrance_img}}"></image>
     <swiper class="swiper"
       indicator-dots
-      indicator-active-color="#157658"
+      indicator-active-color="#157641"
       autoplay
       circular
     >
@@ -14,5 +14,4 @@
     </swiper>
 
     <s-category-grid grid="{{grid}}"></s-category-grid>
-
 </view>

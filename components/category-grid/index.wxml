@@ -1,15 +1,17 @@
 <view class="container">
 
-  <l-grid l-class="inner-container">
+  <l-grid row-num="3" l-class="inner-container">
+
     <block wx:for="{{grid}}">
       <l-grid-item key="{{index}}" slot="{{index}}">
-        <!--一个插槽只能有一个元素，所以需要view包裹-->
+        <!--一个插槽建议只有一个元素，所以需要view包裹-->
         <view class="grid-item">
           <image class="img" src="{{item.img}}"></image>
           <text class="text">{{item.title}}</text>
         </view>
       </l-grid-item>
     </block>
+
   </l-grid>
 
 </view>
