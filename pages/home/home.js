@@ -2,6 +2,7 @@
 import {Theme} from "../../model/theme"
 import {Banner} from "../../model/banner"
 import {Category} from "../../model/category"
+import {Activity} from "../../model/activity"
 
 Page({
 
@@ -11,7 +12,12 @@ Page({
   data: {
     themeA: null,
     bannerB: null,
-    grid: []
+    gridC: [],
+    activityD: null,
+    themeE: null,
+    themeESpu: [],
+    themeF: null,
+    themeH: null
   },
 
   /**
@@ -30,7 +36,15 @@ Page({
     // 清楚await是promise的语法糖呀！就相当于.then
 
     // 不加await返回的是promise对象
-    const themeA = await Theme.getHomeLocationA()
+    const theme = new Theme()
+    await theme.getThemes()
+    // name = t-1
+    // for(let theme of themes){
+    //   if (theme.name=t-1)
+    // }
+    // 集合,函数式编程
+    // find/filter/map/some/reduce
+
     // try {
     //   await xxx
     //   await xxx
@@ -39,14 +53,33 @@ Page({
     //   console.log(e)
     // }
 
+    const themeA = theme.getHomeLocationA()
+    const themeE = theme.getHomeLocationE()
+    let themeESpu = []
+    if (themeE.online){
+      const data = await theme.getHomeLocationESpu()
+      if (data){
+        // list.slice(0,8)=>list[0,7]
+        themeESpu = data.spu_list.slice(0,8)
+      }
+    }
+    const themeF = theme.getHomeLocationF()
+    const themeH = theme.getHomeLocationH()
+
     const bannerB = await Banner.getHomeLocationB()
-    const grid = await Category.getGridCategory()
+    const gridC = await Category.getHomelocationC()
+    const activityD = await Activity.getHomelocationD()
 
 
     this.setData({
-      themeA:themeA[0],
+      themeA,
       bannerB,
-      grid
+      gridC,
+      activityD,
+      themeE,
+      themeESpu,
+      themeF,
+      themeH,
     })
   },
 

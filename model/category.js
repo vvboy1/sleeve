@@ -8,8 +8,8 @@
 import {Http} from "../utils/http"
 
 class Category {
-  static async getGridCategory(){
-    return await Http.request({
+  static getHomelocationC(){
+    return Http.request({
       url:`category/grid/all`
     })
   }

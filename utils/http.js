@@ -22,7 +22,7 @@ class Http {
         appKey: config.appKey
       }
     })
-
+    // 这里用await是获取结果，得到data再async封装成promise
     return res.data
   }
 }
