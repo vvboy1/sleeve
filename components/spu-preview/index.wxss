@@ -1,0 +1,60 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    /*边框效果*/
+    box-shadow: 0px 0px 8px 0px rgba(119, 163, 149, 0.2);
+    margin-bottom: 30rpx;
+    background-color: #fff;
+    width: 340rpx;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 16rpx 16rpx 22rpx 16rpx;
+}
+
+.img {
+    width: 100%;
+}
+
+.title {
+    font-size: 28rpx;
+    /* 文本一般不用纯黑，一般用#333 */
+    color: #333;
+}
+
+.tags {
+    display: flex;
+    flex-direction: row;
+    /*设置可换行*/
+    flex-wrap: wrap;
+    margin-top: 6rpx;
+    margin-bottom: 8rpx;
+}
+
+.l-tag {
+    background-color: #DCEBE6;
+    color: #157658;
+    height: 36rpx;
+    padding-left: 6rpx;
+    padding-right: 6rpx;
+    margin-right: 5rpx;
+}
+
+.price-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.discount-price {
+    margin-left: 20rpx;
+}
+
+.subtitle {
+    font-size: 24rpx;
+    /*字体粗细*/
+    font-weight: 300;
+    margin-top: 6rpx;
+    color: #888;
+}

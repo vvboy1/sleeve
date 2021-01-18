@@ -1,20 +1,24 @@
+<wxs src="../../miniprogram_npm/lin-ui/filter/string.wxs" module="s"></wxs>
+
 <view class="container">
     
     <image class="title" src="{{theme.title_img}}"></image>
 <!--    scroll-view可有放在view,滚动条只在view里，不会占整个屏幕-->
 <!--    scroll-view需要enable-flex开启flex布局-->
     <scroll-view scroll-x enable-flex class="scroll-view">
-        <block wx:for="{{spuList}}">
-            <view class="spu-container">
-                <image class="spu-img" src="{{item.img}}"></image>
-                <l-price
-                        l-unit-class="price-unit"
-                        l-value-class="price-value"
-                        value="{{item.price}}">
-                </l-price>
-                <text>{{item.title}}</text>
-            </view>
-        </block>
+<!--        <view class="inner" >-->
+            <block wx:for="{{spuList}}" wx:key="index">
+                <view class="spu-container">
+                    <image class="spu-img" src="{{item.img}}"></image>
+                    <text class="spu-text">{{item.title.length>=8?s.substring(item.title,0,7)+'...':item.title}}</text>
+                    <l-price
+                            l-unit-class="price-unit"
+                            l-value-class="price-value"
+                            value="{{item.price}}">
+                    </l-price>
+                </view>
+            </block>
+<!--        </view>-->
     </scroll-view>
 
 </view>

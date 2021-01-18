@@ -3,8 +3,15 @@ import {Theme} from "../../model/theme"
 import {Banner} from "../../model/banner"
 import {Category} from "../../model/category"
 import {Activity} from "../../model/activity"
+import {SpuPaging} from "../../model/spu-paging"
 
 Page({
+  /**
+   * 纯数据字段是仅仅被记录在this.data中,不参与任何界面渲染过程,可以用于提升页面更新性能。
+   */
+  options: {
+    pureDataPattern: /^_/ // 指定所有_开头的数据字段为纯数据字段
+  },
 
   /**
    * 页面的初始数据
@@ -17,7 +24,12 @@ Page({
     themeE: null,
     themeESpu: [],
     themeF: null,
-    themeH: null
+    themeH: null,
+    bannerG: null,
+
+    loadingType: 'loading',
+
+    _spuPaging: null
   },
 
   /**
@@ -25,10 +37,26 @@ Page({
    */
   onLoad: async function (options) {
     this.initAllData()
+    this.initBottomSpuList()
+  },
+
+  async initBottomSpuList(){
+    const paging = SpuPaging.getLatestPaging()
+    // 把paging对象保存下来，不可能触发下滑的时候new一个新的paging
+    this.data._spuPaging = paging
+
+    const data = await this.data._spuPaging.getMoreData()
+    if (!data){
+      return
+    }
+    // 传入数组数据,linUi自动把每个元素传入spu-preview
+    // 第二个参数是否清空累加数据
+    wx.lin.renderWaterFlow(data.items)
+
   },
 
   // 小程序自动生成的函数是ES5语法，这里定义是ES6语法
-  async initAllData(){
+  async initAllData() {
 
     // 1.函数添加上async(异步)之后 返回值即成为了promise对象
     // ,如果不加速await，没啥作用
@@ -56,20 +84,21 @@ Page({
     const themeA = theme.getHomeLocationA()
     const themeE = theme.getHomeLocationE()
     let themeESpu = []
-    if (themeE.online){
+    if (themeE.online) {
       const data = await theme.getHomeLocationESpu()
-      if (data){
+      if (data) {
         // list.slice(0,8)=>list[0,7]
-        themeESpu = data.spu_list.slice(0,8)
+        themeESpu = data.spu_list.slice(0, 8)
       }
     }
     const themeF = theme.getHomeLocationF()
     const themeH = theme.getHomeLocationH()
 
     const bannerB = await Banner.getHomeLocationB()
+    const bannerG = await Banner.getHomeLocationG()
+
     const gridC = await Category.getHomelocationC()
     const activityD = await Activity.getHomelocationD()
-
 
     this.setData({
       themeA,
@@ -80,7 +109,24 @@ Page({
       themeESpu,
       themeF,
       themeH,
+      bannerG
     })
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: async function () {
+    const data = await this.data._spuPaging.getMoreData()
+    if(!data){
+      return
+    }
+    wx.lin.renderWaterFlow(data.items)
+    if(!data.moreData){
+      this.setData({
+        loadingType: 'end'
+      })
+    }
   },
 
   /**
@@ -115,13 +161,6 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
 
   },
 

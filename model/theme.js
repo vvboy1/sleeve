@@ -14,8 +14,7 @@ class Theme {
   themes = []
 
   async getThemes(){// 获取一组主题
-    const names = `${Theme.locationA},${Theme.locationE},
-    ${Theme.locationF},${Theme.locationH}`
+    const names = `${Theme.locationA},${Theme.locationE},${Theme.locationF},${Theme.locationH}`
 
     this.themes = await Http.request({
       url: `theme/by/names`,
@@ -45,7 +44,6 @@ class Theme {
   // async只是保证返回promise，这里肯定返回就没必要加了
   // await等待promise结果
   getHomeLocationESpu(){
-    console.log(this.getThemeSpuByName(Theme.locationE))
     return this.getThemeSpuByName(Theme.locationE)
   }
   // 看数据是否保存状态来考虑是否需要static
