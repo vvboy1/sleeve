@@ -1,0 +1,49 @@
+<wxs src="../../wxs/price.wxs" module="p"></wxs>
+<view class="contaner">
+    <view class="inner-contaner">
+        <image class="img" src="{{skuTitle.img}}"></image>
+        <view class="rigth">
+            <view>{{skuTitle.title}}</view>
+            <view>
+                <view class="price-conten">
+                    <l-price class="price" color="#157658"
+                     value-size="28"
+                     unit-size="20"
+                     bold="800"
+                     autofix
+                     value="{{p.mainPrice(skuTitle.price,skuTitle.discount_price).price}}"></l-price>
+                    <l-price class="price" wx:if="{{p.slashedPrice(skuTitle.price,skuTitle.discount_price).display}}"
+                     deleted
+                     l-class="discount-price"
+                     color="#999"
+                     size="20"
+                     value="{{p.slashedPrice(skuTitle.price,skuTitle.discount_price).price}}"></l-price>
+                     <text class="b-stock" wx:if="{{skuTitle.stock>10}}">库存:{{skuTitle.stock}}</text>
+                     <text class="r-stock" wx:if="{{skuTitle.stock<=10}}">仅剩:{{skuTitle.stock}}</text>
+                </view>
+                <text class="xuan" wx:if="{{unselectSku.length!==0}}">请选择：</text>
+                <text  class="xuan" wx:if="{{unselectSku.length===0}}">已选：</text>
+                <block wx:for="{{unselectSku}}" wx:if="{{unselectSku.length!==0}}">
+                    <text class="x-value" >{{item}} </text>
+                </block>
+                <block wx:for="{{selectSku}}" wx:if="{{unselectSku.length===0}}">
+                    <text class="x-value" >{{item.key}} </text>
+                </block>
+            </view>
+        </view>
+    </view>
+
+    <view class="line"></view>
+
+    <view>
+        <block wx:for="{{list}}">
+            <view class="value">{{item.key}}</view>
+            <view class="vx">
+                <block wx:for="{{item.value}}"  wx:for-item="i">
+                    <view class="{{i.state}}-b" data-select-objec="{{i}}" bindtap="select"><text class="{{i.state}}">{{i.value}}</text></view>
+                </block>
+            </view>
+            <view class="line"></view>
+        </block>
+    </view>
+</view>

@@ -1,6 +1,4 @@
-
 <wxs src="../../wxs/price.wxs" module="p"></wxs>
-
 <view class="container">
 <!--    这里不用mode="widthFix"，尝试自己动态计算宽高-->
     <image bind:load="onImgLoad"
@@ -26,6 +24,7 @@
                      l-class="discount-price"
                      color="#999"
                      size="26"
+                     autofix
                      value="{{p.slashedPrice(data.price,data.discount_price).price}}"></l-price>
         </view>
 
